@@ -5,15 +5,15 @@ Vagrant のインストールが済んでいる環境で Docker を Build しま
 /vagrant/docker/moonlamp というフォルダにこのリポジトリのファイルを配置します。
 /vagrant/html が web root になります。
 
-## 1:Dockerfileのbuild
+## 第１章 Dockerfileのbuild
 
 sudo docker build -t="bluemoon/lamp" .
 
-## 1:Dockerfileの実行
+## 第２章 Dockerfileの実行
 
--p ローカルポート:docker 側ポートで 192.168.33.10 にアクセスします。ローカルポートを-p 8080:80 に変更すれば、ブラウザから 192.168.33.10:8080 でアクセスできます。
+-p ローカルポート:docker 側ポートで 192.168.33.10 にアクセスします。ssh -p 2222 docker@192.168.33.10 で docker に ssh できます。vagrant は vagrant ssh で 22 で接続するので、docker では 22 ポートは使えません。
 
-docker run -i -t -d -p 80:80 -p 22:22 -p 3306:3306 --name moonlamp -v /vagrant:/vagrant:rw bluemoon/lamp
+docker run -i -t -d -p 80:80 -p 2222:22 -p 3306:3306 --name moonlamp -v /vagrant:/vagrant:rw bluemoon/lamp
 
 ## 第３章　ローカルからアクセス
 
@@ -21,13 +21,10 @@ docker run -i -t -d -p 80:80 -p 22:22 -p 3306:3306 --name moonlamp -v /vagrant:/
 http://192.168.33.10
 
 phpMyAdmin や WordPress などは /vagrant/html/ フォルダにローカルで配置します。
-以下にアクセスすると動作します。
-
-http://192.168.33.10/phpMyAdmin
-http://192.168.33.10/wordpress
+例えば wordpress のサイトならサーバ上のファイルを /vagrant/html/  直下に置くと動作します。
 
 ### 2:ターミナルから
-ssh -p 22 docker@192.168.33.10
+ssh -p 2222 docker@192.168.33.10
 PW は docker
 
 ### 3:MySQL Workbench / Aquafold 等から
