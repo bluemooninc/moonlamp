@@ -7,13 +7,13 @@ Vagrant のインストールが済んでいる環境で Docker を Build しま
 
 ## 第１章 Dockerfileのbuild
 
-sudo docker build -t="bluemoon/lamp" .
+sudo docker build -t="bluemoon/moonlamp" .
 
 ## 第２章 Dockerfileの実行
 
 -p ローカルポート:docker 側ポートで 192.168.33.10 にアクセスします。ssh -p 2222 docker@192.168.33.10 で docker に ssh できます。vagrant は vagrant ssh で 22 で接続するので、docker では 22 ポートは使えません。
 
-docker run -i -t -d -p 80:80 -p 2222:22 -p 3306:3306 --name moonlamp -v /vagrant:/vagrant:rw bluemoon/lamp
+docker run -i -t -d -p 80:80 -p 2222:22 -p 3306:3306 --name moonlamp -v /vagrant:/vagrant:rw bluemoon/moonlamp
 
 ## 第３章　ローカルからアクセス
 
