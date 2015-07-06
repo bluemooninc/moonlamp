@@ -31,6 +31,8 @@ RUN chmod 777 /var/lib/php/session
 # Add the MySql dependent repository
 RUN yum install -y http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
 RUN yum install -y mysql mysql-devel mysql-server  mysql-utilities
+RUN touch /var/lib/mysql/mysql.sock
+RUN chown mysql:mysql /var/lib/mysql
 
 # Create user
 RUN echo 'root:docker' | chpasswd
