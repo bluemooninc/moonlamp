@@ -17,7 +17,7 @@ RUN yum -y install nginx
 # Installing PHP
 RUN rpm -Uvh http://ftp.iij.ad.jp/pub/linux/fedora/epel/6/x86_64/epel-release-6-8.noarch.rpm
 RUN rpm -Uvh http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-RUN yum -y --enablerepo=remi,remi-php56 install nginx php php-fpm php-mbstring php-common php-mysql php-devel php-pear
+RUN yum -y --enablerepo=remi,remi-php56 install nginx php php-fpm php-gd php-mbstring php-pdo php-mysql php-devel php-pear
 RUN yum -y install openssl-devel
 
 # Adding the configuration file of the nginx
