@@ -30,9 +30,11 @@ RUN chmod 777 /var/lib/php/session
 # Installing MySQL
 # Add the MySql dependent repository
 RUN yum install -y http://dev.mysql.com/get/mysql-community-release-el6-5.noarch.rpm
-RUN yum install -y mysql mysql-devel mysql-server  mysql-utilities
-RUN touch /var/lib/mysql/mysql.sock
-RUN chown mysql:mysql /var/lib/mysql
+RUN yum install -y mysql mysql-devel mysql-server mysql-utilities
+RUN echo "NETWORKING=yes" > /etc/sysconfig/network
+# 外部からmysqlサーバにアクセス可能にする
+RUN sed -i -e"s/^bind-addresss*=s*127.0.0.1/bind-address = 0.0.0.0/" /etc/my.cnf
+RUN /etc/init.d/mysqld start && mysqladmin -u root password 'moon' && (echo 'grant all privileges on *.* to root@"%" identified by "moon" with grant option;' | mysql -u root -pmoon) && /etc/init.d/mysqld stop
 
 # Create user
 RUN echo 'root:docker' | chpasswd
@@ -60,11 +62,12 @@ RUN /etc/init.d/sshd start
 RUN /etc/init.d/sshd stop
 
 # Setup Mysql
-RUN service mysqld start && \
-    /usr/bin/mysqladmin -u root password "root"
+#RUN service mysqld start && \
+#    /usr/bin/mysqladmin -u root password "root"
 
 # Set root path with default.nginx.conf share the local foler in vagrant
 RUN mkdir /vagrant
+RUN mkdir /vagrant/mysql
 RUN mkdir /vagrant/html
 ## RUN ln -s /vagrant/html /var/www
 
