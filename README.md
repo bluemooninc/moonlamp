@@ -29,4 +29,4 @@ PW は docker
 
 ### 3:MySQL Workbench / Aquafold 等から
 192.168.33.10:3306 root
-pw は root
+pw は moon
