@@ -64,7 +64,9 @@ RUN /etc/init.d/sshd stop
 # Setup Mysql
 #RUN service mysqld start && \
 #    /usr/bin/mysqladmin -u root password "root"
-
+RUN mkdir /tmp/log
+chmod 777 /tmp/log
+ 
 # Set root path with default.nginx.conf share the local foler in vagrant
 RUN mkdir /vagrant
 RUN mkdir /vagrant/mysql
